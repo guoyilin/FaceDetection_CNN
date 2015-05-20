@@ -1,6 +1,3 @@
-#1. change fully connected model into all conv model.
-#2. given an image, load model, get the heat map.
-#3. using nms-max to get the final bounding box and score.
 import numpy as np
 import matplotlib.pyplot as plt
 #import Image
@@ -47,8 +44,12 @@ def generateBoundingBox(featureMap, scale):
     #sort by prob, from max to min.
     #boxes = np.array(boundingBox)
     return boundingBox
+#def nms_average(boxes, overlapThresh=0.2):
 
-def nms_max(boxes, overlapThresh=0.2):
+
+
+
+def nms_max(boxes, overlapThresh=0.3):
     if len(boxes) == 0:
         return []
 
@@ -96,8 +97,8 @@ def nms_max(boxes, overlapThresh=0.2):
         area_array = np.zeros(len(idxs) - 1)
         area_array.fill(area_i)
         # compute the ratio of overlap
-        #overlap = (w * h) / (area[idxs[:last]]  - w * h + area_array)
-        overlap = (w * h) / (area[idxs[:last]])
+        overlap = (w * h) / (area[idxs[:last]]  - w * h + area_array)
+        #overlap = (w * h) / (area[idxs[:last]])
         # delete all indexes from the index list that have
         idxs = np.delete(idxs, np.concatenate(([last],np.where(overlap > overlapThresh)[0])))
 
@@ -136,6 +137,7 @@ def face_detection(imgFile):
         min = img.size[0]
     scales.append(1)
     scales.append(3)
+    #scales.append(5)
     min = min * factor
     factor_count = 1
     while(min >= 227):
@@ -152,9 +154,9 @@ def face_detection(imgFile):
         new_line = ""
         for i, line in enumerate(prototxt):
             if i== 5:
-                new_line += "input_dim: " + str(scale_img.size[0]) + "\n"
-            elif i== 6:
                 new_line += "input_dim: " + str(scale_img.size[1]) + "\n"
+            elif i== 6:
+                new_line += "input_dim: " + str(scale_img.size[0]) + "\n"
             else:
                 new_line += line
         output = open('net_surgery/face_full_conv2.prototxt', 'w')
@@ -174,8 +176,13 @@ def face_detection(imgFile):
 
         # make classification map by forward and print prediction indices at each location
         out = net_full_conv.forward_all(data=np.asarray([transformer.preprocess('data', im)]))
-       # print out['prob'][0,1]
+        print out['prob'][0].argmax(axis=0)
         boxes = generateBoundingBox(out['prob'][0,1], scale)
+        #plt.subplot(1, 2, 1)
+        #plt.imshow(transformer.deprocess('data', net_full_conv.blobs['data'].data[0]))
+        #plt.subplot(1, 2, 2)
+        #plt.imshow(out['prob'][0,1])
+        #plt.show()
         #print boxes
         if(boxes):
             total_boxes.extend(boxes)
@@ -199,4 +206,4 @@ def face_detection(imgFile):
     img.show()
 
 if __name__ == "__main__":
-    face_detection("/mnt/data/fddb/2002/08/11/big/img_290.jpg")
+    face_detection("/mnt/data/fddb/2002/08/02/big/img_669.jpg")
