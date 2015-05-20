@@ -1,0 +1,17 @@
+net: "examples/face_detection_yahoo/alexNet/train_val.prototxt"
+test_iter: 157
+test_interval: 10000
+# lr for fine-tuning should be lower than when starting from scratch
+base_lr: 0.001
+lr_policy: "step"
+gamma: 0.1
+# stepsize should also be lower, as we're closer to being done
+stepsize: 20000
+display: 20
+max_iter: 100000
+momentum: 0.9
+weight_decay: 0.0005
+snapshot: 10000
+snapshot_prefix: "examples/face_detection_yahoo/alexNet/alexNet_"
+# uncomment the following to default to CPU mode solving
+# solver_mode: CPU
