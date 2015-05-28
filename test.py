@@ -11,12 +11,8 @@ caffe_root = '/mnt_data/caffe/caffe/'
 
 sys.path.insert(0, caffe_root + 'python')
 import caffe
-caffe.set_device(2)
+caffe.set_device(0)
 caffe.set_mode_gpu()
-#configure plotting
-#plt.rcParams['figure.figsize'] = (10, 10)
-#plt.rcParams['image.interpolation'] = 'nearest'
-#plt.rcParams['image.cmap']='gray'
 
 
 
@@ -184,13 +180,13 @@ def nms_max(boxes, overlapThresh=0.3):
 def convert_full_conv():
  # Load the original network and extract the fully connected layers' parameters.
     net = caffe.Net('deploy.prototxt',
-                    '/mnt_data/caffe/caffe/examples/face_detection_yahoo/alexNet/alexNet__iter_60000.caffemodel',
+                    'alexNet__iter_60000.caffemodel',
                     caffe.TEST)
     params = ['fc6', 'fc7', 'fc8_flickr']
     fc_params = {pr: (net.params[pr][0].data, net.params[pr][1].data) for pr in params}
     # Load the fully convolutional network to transplant the parameters.
     net_full_conv = caffe.Net('face_full_conv.prototxt',
-                           '/mnt_data/caffe/caffe/examples/face_detection_yahoo/alexNet/alexNet__iter_60000.caffemodel',
+                           'alexNet__iter_60000.caffemodel',
                               caffe.TEST)
     params_full_conv = ['fc6-conv', 'fc7-conv', 'fc8-conv']
     conv_params = {pr: (net_full_conv.params[pr][0].data, net_full_conv.params[pr][1].data) for pr in params_full_conv}
@@ -298,4 +294,4 @@ def face_detection(imgList):
 
 if __name__ == "__main__":
     #convert_full_conv()
-    face_detection("/mnt_data/data/yilin_guo/pipa_new/val.txt")
+    face_detection("lfw.txt")

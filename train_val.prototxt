@@ -13,7 +13,7 @@ layer {
     mean_file: "data/ilsvrc12/imagenet_mean.binaryproto"
   }
   image_data_param {
-    source: "/mnt_data/data/yilin_guo/aflw/crop_images/train.txt"
+    source: "aflw/crop_images/train.txt"
     batch_size: 128
     new_height: 256
     new_width: 256
@@ -33,7 +33,7 @@ layer {
     mean_file: "data/ilsvrc12/imagenet_mean.binaryproto"
   }
   image_data_param {
-    source: "/mnt_data/data/yilin_guo/aflw/crop_images/val.txt"
+    source: "aflw/crop_images/val.txt"
     batch_size: 50
     new_height: 256
     new_width: 256

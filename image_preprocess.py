@@ -32,7 +32,7 @@ def IoUofTwoSameImages(region1, region2):
 
 if __name__ == "__main__":
     #write to file
-    output = open('aflw.list6', 'w')
+    output = open('aflw.list', 'w')
     #read faces rect from file
     faces_file = open('face_rect.txt', 'r')
     imageFaces = {}
@@ -61,7 +61,7 @@ if __name__ == "__main__":
 #####################################
     count = 0
     for imagePath, faces in imageFaces.iteritems():
-        imagePath = '/mnt_data/yilin_guo/data/aflw/aflw/data/' + imagePath
+        imagePath = 'aflw/data/' + imagePath
         try:
             im = Image.open(imagePath)
             face_regions = []
