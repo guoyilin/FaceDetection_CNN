@@ -8,6 +8,6 @@ Implement Yahoo Paper: Multi-view Face Detection Using Deep Convolutional Neural
 
 ==========
 Reference:
-[1]https://lrs.icg.tugraz.at/research/aflw/
-[2] http://nbviewer.ipython.org/github/BVLC/caffe/blob/master/examples/net_surgery.ipynb
+[1]https://lrs.icg.tugraz.at/research/aflw/<p/>
+[2] http://nbviewer.ipython.org/github/BVLC/caffe/blob/master/examples/net_surgery.ipynb<p/>
 
