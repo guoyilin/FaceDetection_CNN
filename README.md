@@ -1,4 +1,5 @@
 # FaceDetection_CNN
+Since baidu yun delete the model, i upload again: https://pan.baidu.com/s/1pJJ2WKN. 
 Implement Yahoo Paper: Multi-view Face Detection Using Deep Convolutional Neural Networks<p/>
 1. Image Preprocess aflw dataset[1]. Use iou>=0.5 as positive, iou<=0.3 as negative. <p/>
 2. Fine-tune Alex-Net using AFLW dataset. The model is in Baidu Yun: http://pan.baidu.com/s/1i38IAIp <p/>
